@@ -1,4 +1,5 @@
 <script>
+<<<<<<< HEAD
 	export let list=[
 		{content:'1',checked:false},
 		{content:'2',checked:true},
@@ -32,6 +33,17 @@
 	.checked{
 		text-decoration: line-through;
 	}
+=======
+	export let name;
+</script>
+
+<main>
+	<h1>Hello {name}!</h1>
+	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+</main>
+
+<style>
+>>>>>>> a69e0b5f7c1ce206ec8cb680fd710ca524639525
 	main {
 		text-align: center;
 		padding: 1em;
