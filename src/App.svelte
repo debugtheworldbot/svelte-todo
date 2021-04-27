@@ -1,66 +1,37 @@
+<svelte:options immutable/>
+
 <script>
-<<<<<<< HEAD
-	export let list=[
-		{content:'1',checked:false},
-		{content:'2',checked:true},
-		{content:'3',checked:false},
+	import ImmutableTodo from './Todo.svelte';
+
+	let todos = [
+		{ id: 1, done: true, text: 'wash the car' },
+		{ id: 2, done: false, text: 'take the dog for a walk' },
+		{ id: 3, done: false, text: 'mow the lawn' }
 	];
-	let newItem = ''
-	const addNew = ()=>{
-		if(newItem==='')return
-		list = [...list,{content:newItem,checked:false}]
-		newItem = ''
-	}
-	const remove = (i)=>{
-		list = list.filter((_l,index)=>index!==i)
+
+	function toggle(id) {
+		todos = todos.map(todo => {
+			if (todo.id === id) {
+				// return a new object
+				return {
+					id,
+					done: !todo.done,
+					text: todo.text
+				};
+			}
+
+			// return the same object
+			return todo;
+		});
 	}
 </script>
 
-<main>
-	<h1>todo list</h1>
-	<input bind:value={newItem} type='text' placeholder='new todo?' />
-	<button on:click={addNew}>+</button>
-	{#each list as item,i}
-	<div>
-		<input type="checkbox" bind:checked={item.checked} >
-		<span on:click={()=>item.checked = !item.checked} class:checked={item.checked}>{item.content}</span>
-		<span on:click={()=>remove(i)}>❌</span>
-	</div>
-	{/each}
-</main>
+<h2>Immutable</h2>
+{#each todos as todo}
+	<ImmutableTodo {todo} on:click="{() => toggle(todo.id)}"/>
+{/each}
 
-<style>
-	.checked{
-		text-decoration: line-through;
-	}
-=======
-	export let name;
-</script>
-
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
-
-<style>
->>>>>>> a69e0b5f7c1ce206ec8cb680fd710ca524639525
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
-</style>
+<!-- <h2>Mutable</h2>
+{#each todos as todo}
+	<MutableTodo {todo} on:click="{() => toggle(todo.id)}"/>
+{/each} -->
